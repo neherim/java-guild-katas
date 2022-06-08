@@ -25,13 +25,9 @@ public class FiTransferService {
      * @param orderId   поручение на основании которого блокируем бумаги
      * @param accountId id счета
      * @param amount    количество бумаг для блокирования
-     * @throws AccountNotFoundException  счет не найден
-     * @throws FiNotEnoughException      недостаточно ц.б. для проведения технической блокировки
-     * @throws FiAlreadyBlockedException бумаги уже были заблокированы по данному поручению
      */
     @Transactional
-    public void makeTechBlock(Long orderId, Long accountId, Integer amount)
-            throws AccountNotFoundException, FiNotEnoughException, FiAlreadyBlockedException {
+    public void makeTechBlock(Long orderId, Long accountId, Integer amount) {
         // Ищем счет
         var account = accountRepository.findById(accountId).orElseThrow(() -> new AccountNotFoundException(accountId));
 
@@ -41,7 +37,7 @@ public class FiTransferService {
             throw new FiAlreadyBlockedException(account, orderId);
         }
 
-        // Проверяем, хватает ли незаблокированных ц.б. для новой блокировки
+        // Проверяем, хватает ли не заблокированных ц.б. для новой блокировки
         var totalBlockedAmount = fiTechBlockRepository.getTotalBlockedAmount(accountId);
         if (amount > account.getBalance() - totalBlockedAmount) {
             throw new FiNotEnoughException(account, amount);
@@ -58,16 +54,9 @@ public class FiTransferService {
      * @param debitAccountId  id счета с которого списываем
      * @param creditAccountId id счета на который зачисляем
      * @param amount          количество бумаг
-     * @throws AccountNotFoundException не найден счет списания или зачисления
-     * @throws FiNotBlockedException    бумаги не были предварительно заблокированы
      */
     @Transactional
-    public void transferFi(Long orderId, Long debitAccountId, Long creditAccountId, Integer amount)
-            throws AccountNotFoundException, FiNotBlockedException {
-        if (debitAccountId.equals(creditAccountId)) {
-            return;
-        }
-
+    public void transferFi(Long orderId, Long debitAccountId, Long creditAccountId, Integer amount) {
         // Получаем счета
         var debitAccount = getAccountById(debitAccountId);
         var creditAccount = getAccountById(creditAccountId);
@@ -84,7 +73,7 @@ public class FiTransferService {
         creditAccount.setBalance(creditAccount.getBalance() + amount);
     }
 
-    private Account getAccountById(Long id) throws AccountNotFoundException {
+    private Account getAccountById(Long id) {
         return accountRepository.findById(id).orElseThrow(() -> new AccountNotFoundException(id));
     }
 }

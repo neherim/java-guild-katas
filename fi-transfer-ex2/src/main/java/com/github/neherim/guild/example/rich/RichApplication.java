@@ -9,5 +9,4 @@ public class RichApplication {
     public static void main(String[] args) {
         SpringApplication.run(RichApplication.class, args);
     }
-
 }

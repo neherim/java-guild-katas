@@ -59,5 +59,4 @@ class FiTransferServiceTest {
         account.credit(balance);
         return account;
     }
-
 }

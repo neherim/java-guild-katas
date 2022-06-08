@@ -46,15 +46,10 @@ public class Account {
 
     /**
      * Списываем ц.б. со счета
-     *
-     * @param amount количество ц.б.
      */
-    public void debit(Long orderId, Integer amount) throws FiNotBlockedException {
-        if (removeTechBlock(orderId)) {
-            balance = balance - amount;
-        } else {
-            throw new FiNotBlockedException(orderId);
-        }
+    public void debit(Long orderId) {
+        var block = removeTechBlock(orderId).orElseThrow(() -> new FiNotBlockedException(orderId));
+        balance = balance - block.getAmount();
     }
 
     /**
@@ -71,9 +66,8 @@ public class Account {
      *
      * @param orderId поручение на основании которого блокируем бумаги
      * @param amount  количество бумаг для блокирования
-     * @throws FiNotEnoughException недостаточно ц.б. для проведения технической блокировки
      */
-    public void makeTechBlock(Long orderId, Integer amount) throws FiNotEnoughException, FiAlreadyBlockedException {
+    public void makeTechBlock(Long orderId, Integer amount) {
         if (findFiTechBlockByOrderId(orderId).isPresent()) {
             throw new FiAlreadyBlockedException(this, orderId);
         }
@@ -89,14 +83,10 @@ public class Account {
      * @param orderId поручение на основании которого была проведена техническая блокировка
      * @return true в случае если блокировка удалена, false если такой блокировки не было
      */
-    public boolean removeTechBlock(Long orderId) {
+    public Optional<FiTechBlock> removeTechBlock(Long orderId) {
         var blockOpt = findFiTechBlockByOrderId(orderId);
-        if (blockOpt.isPresent()) {
-            blockedFi.remove(blockOpt.get());
-            return true;
-        } else {
-            return false;
-        }
+        blockOpt.ifPresent(blk -> blockedFi.remove(blk));
+        return blockOpt;
     }
 
     /**

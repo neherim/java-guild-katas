@@ -56,8 +56,8 @@ class FiTransferServiceTest {
         // then
         // Захватываем аргумент в моках, для дальнейшей проверки
         Mockito.verify(fiTechBlockRepository).save(fiTechBlockCaptor.capture());
-        assertEquals(fiTechBlockCaptor.getValue().getAmount(), 300, "Должно быть заблокировано 300 бумаг");
-        assertEquals(fiTechBlockCaptor.getValue().getOrderId(), 100L, "Должно быть заблокировано 300 бумаг");
+        assertEquals(fiTechBlockCaptor.getValue().getAmount(), 300);
+        assertEquals(fiTechBlockCaptor.getValue().getOrderId(), 100L);
     }
 
     @Test
@@ -88,8 +88,8 @@ class FiTransferServiceTest {
 
         // then
         Mockito.verify(fiTechBlockRepository).delete(blocked);
-        assertEquals(400, debitAccount.getBalance(), "Баланс счета дебита не совпадает с ожиданием");
-        assertEquals(200, creditAccount.getBalance(), "Баланс счета кредита не совпадает с ожиданием");
+        assertEquals(400, debitAccount.getBalance());
+        assertEquals(200, creditAccount.getBalance());
     }
 
     private Account openAccountWithBalance(Long id, Integer balance) {

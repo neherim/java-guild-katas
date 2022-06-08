@@ -30,10 +30,8 @@ class AccountTest {
         licAcc.makeTechBlock(2L, 50);
 
         assertAll(
-                () -> assertEquals(500, licAcc.getBalance(),
-                        "Реальный остаток не должен меняться при технической блокировке"),
-                () -> assertEquals(350, licAcc.getNotBlockedBalance(),
-                        "Незаблокированный остаток должен уменьшится на размер блокировок")
+                () -> assertEquals(500, licAcc.getBalance(), "Реальный остаток не должен меняться при технической блокировке"),
+                () -> assertEquals(350, licAcc.getNotBlockedBalance(), "Не заблокированный остаток должен уменьшится на размер блокировок")
         );
     }
 
@@ -52,15 +50,13 @@ class AccountTest {
         licAcc.makeTechBlock(1L, 500);
 
         assertAll(
-                () -> assertEquals(500, licAcc.getBalance(),
-                        "Реальный остаток не должен меняться при технической блокировке"),
-                () -> assertEquals(0, licAcc.getNotBlockedBalance(),
-                        "Незаблокированный остаток должен уменьшится на размер блокировок")
+                () -> assertEquals(500, licAcc.getBalance(), "Реальный остаток не должен меняться при технической блокировке"),
+                () -> assertEquals(0, licAcc.getNotBlockedBalance(), "Не заблокированный остаток должен уменьшится на размер блокировок")
         );
     }
 
     @Test
-    @DisplayName("Ошибка при попытке заблокировать больше бумаг, чем есть незаблокированных бумаг на счете")
+    @DisplayName("Ошибка при попытке заблокировать больше бумаг, чем есть не заблокированных бумаг на счете")
     public void notEnoughFiOnAccount() {
         var licAcc = openAccountWithBalance(500);
         assertThrows(FiNotEnoughException.class, () -> licAcc.makeTechBlock(1L, 600));
