@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Katas</title>
+<meta name="author" content="Артем"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css"/>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/none.css" id="theme"/>
+
+<link rel="stylesheet" href="./css/ember.css"/>
+
+<link rel="stylesheet" href="./css/local.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/androidstudio.min.css"/>
+<link rel="stylesheet" type="text/css" href="./css/local.css" />
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide">
+<h1 class="title">Katas</h1>
+</section>
+
+<section id="slide-orgb79f973">
+<h2 id="orgb79f973">Проект Fi Transfer</h2>
+<div class="outline-text-2" id="text-orgb79f973">
+</div>
+</section>
+<section id="slide-orgb87cb12">
+<h3 id="orgb87cb12">Fi Transfer Ex1</h3>
+<div class="outline-text-3" id="text-orgb87cb12">
+</div>
+</section>
+<section id="slide-org6c6af05">
+<h4 id="org6c6af05">Layered Architecture</h4>
+
+<div id="org6e9df00" class="figure">
+<p><img src="./img/n-tier-architecture.png" alt="n-tier-architecture.png" width="50%" />
+</p>
+</div>
+
+</section>
+<section id="slide-org82df1f8">
+<h4 id="org82df1f8">Anemic Domain Model</h4>
+<p>
+В объектах предметной области инкапсулируются только данные, поведение же выносится в слой сервисов, расположенный поверх слоя предметной области.
+</p>
+
+</section>
+<section id="slide-org4ebc6b3">
+<h4 id="org4ebc6b3">Минусы</h4>
+<ul>
+<li class="fragment roll-in">Тесты сложно писать</li>
+<li class="fragment roll-in">Хрупкие тесты</li>
+<li class="fragment roll-in">Нет инкапсуляции. Слабые гарантии консистентности данных</li>
+
+</ul>
+
+</section>
+<section id="slide-orgb13ab3d">
+<h3 id="orgb13ab3d">Fi Transfer Ex2</h3>
+<div class="outline-text-3" id="text-orgb13ab3d">
+</div>
+</section>
+<section id="slide-orgb9f4f50">
+<h4 id="orgb9f4f50">Clean Architecture</h4>
+<p width="50%">
+<img src="./img/clean_arch.png" alt="clean_arch.png" width="50%" />
+a.k.a. Hexagonal / Onion / Ports&amp;Adapters Architecture
+</p>
+
+</section>
+<section id="slide-org2864529">
+<h4 id="org2864529">Rich Domain Model</h4>
+<p>
+Данные и поведение инкапсулируются внутри объектов предметной области.
+</p>
+
+</section>
+<section id="slide-org83281ee">
+<h4 id="org83281ee">Плюсы</h4>
+<ul>
+<li class="fragment roll-in">Быстрые тесты без моков</li>
+<li class="fragment roll-in">Инкапсуляция. Объекты гарантируют свою консистентность</li>
+
+</ul>
+
+</section>
+<section id="slide-orgbf1ad15">
+<h3 id="orgbf1ad15">Виды тестирования</h3>
+
+<div id="orgd212ee8" class="figure">
+<p><img src="./img/test_shapes.png" alt="test_shapes.png" width="70%" />
+</p>
+</div>
+
+</section>
+<section id="slide-org4769b2a">
+<h3 id="org4769b2a">Выбор архитектуры</h3>
+
+<div id="org791c7e8" class="figure">
+<p><img src="./img/algo.svg" alt="algo.svg" class="org-svg" width="100%" />
+</p>
+</div>
+
+</section>
+<section id="slide-org527230d">
+<h3 id="org527230d">Рекомендации</h3>
+<ul>
+<li>Functional core Imperative shell. По возможности отделяйте бизнес логику от IO.</li>
+<li>Always valid domain model. Не допускайте возможности использовать ваш код неправильно.</li>
+<li>No silver bullet. Используйте паттерны и технологии там, где это уместно.</li>
+
+</ul>
+</section>
+</section>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js/plugin/highlight/highlight.js"></script>
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: false,
+rollingLinks: false,
+keyboard: true,
+mouseWheel: false,
+fragmentInURL: false,
+hashOneBasedIndex: false,
+pdfSeparateFragments: true,
+overview: true,
+
+transition: 'fade',
+transitionSpeed: 'default',
+
+// Plugins with reveal.js 4.x
+plugins: [ RevealNotes, RevealHighlight ],
+
+// Optional libraries used to extend reveal.js
+dependencies: [
+]
+
+});
+</script>
+</body>
+</html>

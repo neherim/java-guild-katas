@@ -1,0 +1,76 @@
+#+REVEAL_ROOT: https://cdn.jsdelivr.net/npm/reveal.js
+#+REVEAL_EXTRA_CSS: ./css/ember.css
+#+REVEAL_EXTRA_CSS: ./css/local.css
+#+REVEAL_THEME: none
+#+REVEAL_TRANS: fade
+#+REVEAL_DEFAULT_FRAG_STYLE: roll-in
+#+REVEAL_PLUGINS: (notes highlight)
+#+REVEAL_HIGHLIGHT_CSS: https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/androidstudio.min.css
+#+REVEAL_DEFAULT_FRAG_STYLE: roll-in
+#+OPTIONS: toc:nil num:nil reveal_slide_number:nil author:nil date:nil timestamp:nil
+#+REVEAL_INIT_OPTIONS: reveal_width:1200 reveal_height:800 navigationMode:linear
+#+REVEAL_HLEVEL: 0
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="./css/local.css" />
+
+#+TITLE: Katas
+
+* Проект Fi Transfer
+** Fi Transfer Ex1
+*** Layered Architecture
+#+ATTR_HTML: :width 50%
+[[file:./img/n-tier-architecture.png]]
+
+*** Anemic Domain Model
+В объектах предметной области инкапсулируются только данные, поведение же выносится в слой сервисов, расположенный поверх слоя предметной области.
+
+*** Минусы
+#+attr_reveal: :frag (roll-in)
+- Тесты сложно писать
+- Хрупкие тесты
+- Нет инкапсуляции. Слабые гарантии консистентности данных
+
+** Fi Transfer Ex2
+*** Clean Architecture
+#+ATTR_HTML: :width 50%
+[[file:./img/clean_arch.png]]
+a.k.a. Hexagonal / Onion / Ports&Adapters Architecture
+
+*** Rich Domain Model
+Данные и поведение инкапсулируются внутри объектов предметной области.
+
+*** Плюсы
+#+attr_reveal: :frag (roll-in)
+- Быстрые тесты без моков
+- Инкапсуляция. Объекты гарантируют свою консистентность
+
+** Виды тестирования
+#+ATTR_HTML: :width 70%
+[[file:./img/test_shapes.png]]
+
+** Выбор архитектуры
+#+begin_src plantuml :file ./img/algo.svg :cache yes
+@startuml
+start
+if (Много \nбизнес логики?) then (да)
+  #palegreen:Rich Domain Model\nClean Architecture\n__ORM__ или JDBC\nПирамида тестирования;
+  kill;
+else (нет)
+  if (Сложные структуры данных) then (да)
+    #palegreen:Anemic Domain Model\nLayered Architecture\n__JDBC__ или ORM\nРомб тестирования;
+    kill;
+  else (нет)
+    #palegreen:Anemic Domain Model\nCLayered Architecture\nJDBC\nМороженое тестирования;
+    kill;
+  endif
+endif
+@enduml
+#+end_src
+
+#+ATTR_HTML: :width 100%
+#+RESULTS[612eae0eeac94a3713b2045157d2501c3eb7ea8b]:
+[[file:./img/algo.svg]]
+
+** Рекомендации
+- Functional core Imperative shell. По возможности отделяйте бизнес логику от IO.
+- Always valid domain model. Не допускайте возможности использовать ваш код неправильно.
+- No silver bullet. Используйте паттерны и технологии там, где это уместно.
