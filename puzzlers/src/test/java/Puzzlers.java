@@ -28,19 +28,19 @@ public class Puzzlers {
 
     /**
      * 1. [1] [1, 2, 3]
-     * 2. Unsupported Operation Exception
-     * 3. None of these
+     * 2. [1, 4, 5, 6] [1, 2, 3]
+     * 3. Unsupported Operation Exception
+     * 4. None of these
      * <p>
-     * ANSWER: 3 ( [1] [1, 4, 5, 6, 2, 3] )
+     * ANSWER: 4 ( [1, 4, 5, 6] [1, 2, 3] )
      */
     @Test
     void sublist() {
         var ints = new ArrayList<>(List.of(1, 2, 3));
         var sublist = ints.subList(0, 1);
-        System.out.print(sublist + " ");
-
         sublist.addAll(List.of(4, 5, 6));
-        System.out.println(ints);
+
+        System.out.println(sublist + " " + ints);
     }
 
     /**
@@ -69,10 +69,7 @@ public class Puzzlers {
      * <p>
      * ANSWER: 4
      * <p>
-     * - If the second and third operands have the same type, that is the type of the conditional expression.
-     * - If one of the operands is of type T and T is byte, short, or char and the other operand is a constant
-     * expression of type int whose value is represented in type T, the type of the conditional expression is T.
-     * - Otherwise, binary numeric promotion is applied to the operands types, and the type of the conditional
+     * Binary numeric promotion is applied to the operands types, and the type of the conditional
      * expression is the promoted type of the second and third operands.
      */
     @Test
