@@ -28,7 +28,7 @@ class MoneyTransferServiceIntegrationTest {
     private MoneyReservationRepository moneyReservationRepository;
 
     @Test
-    public void testFiTechBlock() throws AccountNotFoundException, NotEnoughMoneyException, MoneyAlreadyReservedException {
+    public void testMoneyReservation() throws AccountNotFoundException, NotEnoughMoneyException, MoneyAlreadyReservedException {
         // given
         var newAccountId = accountRepository.save(openAccountWithBalance(500)).getId();
 
@@ -42,7 +42,7 @@ class MoneyTransferServiceIntegrationTest {
 
 
     @Test
-    public void testFiTransfer() throws AccountNotFoundException, NotEnoughMoneyException, MoneyAlreadyReservedException,
+    public void testMoneyTransfer() throws AccountNotFoundException, NotEnoughMoneyException, MoneyAlreadyReservedException,
             MoneyNotReservedException {
         // given
         var newAccountFrom = accountRepository.save(openAccountWithBalance(500)).getId();

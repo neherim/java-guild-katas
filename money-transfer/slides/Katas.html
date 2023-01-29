@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<title>Katas</title>
-<meta name="author" content="Артем"/>
+<title>Money Transfer Kata</title>
+<meta name="author" content="Artem Mikhailovskii"/>
 <style type="text/css">
 .underline { text-decoration: underline; }
 </style>
@@ -21,98 +21,119 @@
 <div class="reveal">
 <div class="slides">
 <section id="sec-title-slide">
-<h1 class="title">Katas</h1>
+<h1 class="title">Money Transfer Kata</h1>
 </section>
 
-<section id="slide-org173fbe7">
-<h2 id="org173fbe7">Проект Fi Transfer</h2>
-<div class="outline-text-2" id="text-org173fbe7">
+<section id="slide-orgc346f13">
+<h2 id="orgc346f13">Money Transfer Anemic</h2>
+<div class="outline-text-2" id="text-orgc346f13">
 </div>
 </section>
-<section id="slide-org85959d1">
-<h3 id="org85959d1">Fi Transfer Ex1</h3>
-<div class="outline-text-3" id="text-org85959d1">
-</div>
-</section>
-<section id="slide-org3961d25">
-<h4 id="org3961d25">Layered Architecture</h4>
+<section id="slide-orge0ccffa">
+<h3 id="orge0ccffa">Layered Architecture</h3>
 
-<div id="org624593d" class="figure">
+<div id="org9b82b58" class="figure">
 <p><img src="./img/n-tier-architecture.png" alt="n-tier-architecture.png" width="50%" />
 </p>
 </div>
 
 </section>
-<section id="slide-orgb434e3d">
-<h4 id="orgb434e3d">Anemic Domain Model</h4>
+<section id="slide-org1a7a850">
+<h3 id="org1a7a850">Anemic Domain Model</h3>
 <p>
-В объектах предметной области инкапсулируются только данные, поведение же выносится в слой сервисов, расположенный поверх слоя предметной области.
+Domain object contains only data. All business logic located in service layer.
 </p>
 
-</section>
-<section id="slide-org9575f30">
-<h4 id="org9575f30">Минусы</h4>
 <ul>
-<li class="fragment roll-in">Тесты сложно писать</li>
-<li class="fragment roll-in">Хрупкие тесты</li>
-<li class="fragment roll-in">Нет инкапсуляции. Слабые гарантии консистентности данных</li>
+<li class="fragment roll-in">Pros
+<ul>
+<li class="fragment roll-in">Simple and widely accepted approach.</li>
+
+</ul></li>
+<li class="fragment roll-in">Cons
+<ul>
+<li class="fragment roll-in">Mixing IO with business logic leads to fragile tests, that hard to write.</li>
+<li class="fragment roll-in">Data can be changed from anywhere. No consistency guaranties.</li>
+<li class="fragment roll-in">Hard to reason about data model invariants.</li>
+
+</ul></li>
 
 </ul>
 
 </section>
-<section id="slide-org08efcf5">
-<h3 id="org08efcf5">Fi Transfer Ex2</h3>
-<div class="outline-text-3" id="text-org08efcf5">
+<section id="slide-org6c6cfc8">
+<h2 id="org6c6cfc8">Money Transfer Rich</h2>
+<div class="outline-text-2" id="text-org6c6cfc8">
 </div>
 </section>
-<section id="slide-org504e802">
-<h4 id="org504e802">Clean Architecture</h4>
-<p width="50%">
-<img src="./img/clean_arch.png" alt="clean_arch.png" width="50%" />
+<section id="slide-orgbc6306e">
+<h3 id="orgbc6306e">Clean Architecture</h3>
+<p>
 a.k.a. Hexagonal / Onion / Ports&amp;Adapters Architecture
 </p>
 
-</section>
-<section id="slide-orge551f23">
-<h4 id="orge551f23">Rich Domain Model</h4>
-<p>
-Данные и поведение инкапсулируются внутри объектов предметной области.
+<div id="orgd550a99" class="figure">
+<p><img src="./img/clean_arch.png" alt="clean_arch.png" width="50%" />
 </p>
+</div>
 
 </section>
-<section id="slide-orgab91ce6">
-<h4 id="orgab91ce6">Плюсы</h4>
+<section id="slide-org1cb1cd1">
+<h3 id="org1cb1cd1">Rich Domain Model</h3>
+<p>
+Data and behavior encapsulated inside domain objects
+</p>
+
 <ul>
-<li class="fragment roll-in">Быстрые тесты без моков</li>
-<li class="fragment roll-in">Инкапсуляция. Объекты гарантируют свою консистентность</li>
+<li class="fragment roll-in">Pros
+<ul>
+<li class="fragment roll-in">Fast tests without mocks for business logic.</li>
+<li class="fragment roll-in">Objects guarantee their consistency.</li>
+
+</ul></li>
+
+<li class="fragment roll-in">Cons
+<ul>
+<li class="fragment roll-in">Required careful classes design. Not suitable for teams without experience</li>
+
+</ul></li>
 
 </ul>
 
 </section>
-<section id="slide-orga2d64d3">
-<h3 id="orga2d64d3">Виды тестирования</h3>
+<section id="slide-org3568297">
+<h2 id="org3568297">Testing Strategy</h2>
 
-<div id="org84c1c9a" class="figure">
+<div id="orgc3a5ddf" class="figure">
 <p><img src="./img/test_shapes.png" alt="test_shapes.png" width="70%" />
 </p>
 </div>
 
 </section>
-<section id="slide-orgcb63838">
-<h3 id="orgcb63838">Выбор архитектуры</h3>
+<section id="slide-orgbaacc99">
+<h2 id="orgbaacc99">Choice of architectural style</h2>
 
-<div id="orgc0a94fa" class="figure">
+<div id="org70b6f4b" class="figure">
 <p><img src="./img/algo.svg" alt="algo.svg" class="org-svg" width="100%" />
 </p>
 </div>
 
 </section>
-<section id="slide-orgafc0ab2">
-<h3 id="orgafc0ab2">Рекомендации</h3>
+<section id="slide-org31790cd">
+<h2 id="org31790cd">Recommendations</h2>
 <ul>
-<li>Functional core Imperative shell. По возможности отделяйте бизнес логику от IO.</li>
-<li>Always valid domain model. Не допускайте возможности использовать ваш код неправильно.</li>
-<li>No silver bullet. Используйте паттерны и технологии там, где это уместно.</li>
+<li>Functional core Imperative shell. Separate business logic from IO if it&rsquo;s possible.</li>
+<li>Always valid domain model. Make wrong state impossible.</li>
+<li>No silver bullet. Use patterns and technologies only when they needed.</li>
+
+</ul>
+
+</section>
+<section id="slide-org5c3f704">
+<h2 id="org5c3f704">Links</h2>
+<ul>
+<li><a href="https://www.oreilly.com/library/view/learning-domain-driven-design/9781098100124/">Learning Domain-Driven Design {Book}</a></li>
+<li><a href="https://www.oreilly.com/library/view/clean-code-a/9780136083238/">Clean Code: A Handbook of Agile Software Craftsmanship {Book}</a></li>
 
 </ul>
 </section>

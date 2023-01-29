@@ -1,28 +1,19 @@
-# Перевод ценных бумаг между счетами с предварительным резервированием средств
+# Money transfer kata
 
-## Бизнес требования
+## Business requirements
 
-В системе должна быть возможность делать переводы ценных бумаг между двумя счетами.
+- Money can only be transferred between two registered accounts.
+- The Complience department wants to do manual checks on every money transfer. So money must be transferred in two steps:
+  1. Reserve the required amount of money on the first account.
+  2. Wait until the transfer request passes all manual checks.
+  3. Remove reservation from the step 1 and transfer money between accounts.
+- Money can be reserved on the account for different transfer requests at the same time.
 
-Перевод осуществляется через подачу специального поручения, где указывается ID счета списания бумаг (счет дебета), ID
-счета на который зачисляем бумаги (счет кредита) и количество бумаг для перевода.
+## Implementation requirements
+You need to implement the `MoneyTransferService` class with two methods:
+- `reserveMoney(Long operationId, Long accountId, Integer amount)` - to reserve money in the source account before the actual transfer
+- `transferMoney(Long operationId, Long fromAccountId, Long toAccountId)` - to remove a reservation and make a transfer between two accounts
 
-Перевод должен осуществляться в два этапа.
-
-1. Необходимо наложить техническую блокировку (зарезервировать)
-   на необходимое количество бумаг на счете списания.
-2. Снятие технической блокировки и перевод бумаг.
-
-Техническая блокировка необходима, так как между первым и вторым этапом перевод проходит различные проверки, которые
-могут длиться от нескольких часов, до нескольких дней.
-
-## Нефункциональные требования
-
-Нагрузка на систему не большая, в районе 10 000 переводов между 5 000 активных счетов
-
-## Реализация
-
-Необходимо реализовать класс FiTransferService с методами:
-
-- `makeTechBlock` - для наложения технической блокировки на бумаги
-- `transferFi` - для снятия технической блокировки и перевода бумаг
+## Solutions
+- [money-transfer-anemic](money-transfer-anemic/README.md) layered architecture with anemic domain model pattern
+- [money-transfer-rich](money-transfer-rich/README.md) onion architecture with rich domain model

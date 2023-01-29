@@ -6,9 +6,6 @@ import lombok.*;
 
 import javax.persistence.Entity;
 
-/**
- * Запись о технической блокировке ценных бумаг
- */
 @Setter
 @Getter
 @Entity

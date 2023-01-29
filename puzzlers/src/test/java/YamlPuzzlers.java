@@ -8,7 +8,7 @@ public class YamlPuzzlers {
      * 1. {countries=[DE, NO, RU, US]}
      * 2. [DE, NO, RU, US]
      * 3. YamlParsingException
-     * 4. Somethung else
+     * 4. Something else
      * <p>
      * ANSWER: {countries=[DE, false, RU, US]}
      * <p>
@@ -17,24 +17,9 @@ public class YamlPuzzlers {
      * |true|True|TRUE|false|False|FALSE
      * |on|On|ON|off|Off|OFF
      * <p>
-     * <p>
-     * <p>
-     * <p>
-     * Правильный ответ: {countries=[DE, false, RU, US]}
-     * <p>
-     * Проблема в том, что спецификация yaml версии 1.1 тип bool можно выразить 22мя разными способами:
-     * <p>
-     * y|Y|yes|Yes|YES|n|N|no|No|NO
-     * |true|True|TRUE|false|False|FALSE
-     * |on|On|ON|off|Off|OFF
-     * <p>
-     * <p>
-     * Из за этого код страны Норвегии парсится как No = false. Эта проблема так и называется The Norway Problem.
-     * Чтобы этого избежать нужно всегда в yaml файлах заключать текст в кавычки.
+     * That problem called "The Norway Problem"
      * <p>
      */
-
-
     @Test
     public void countries() {
         var yaml = """
@@ -47,5 +32,29 @@ public class YamlPuzzlers {
 
         var countries = new Yaml().load(yaml);
         System.out.println(countries);
+    }
+
+    /**
+     * 1. {port_mapping=[1342, 80:80, 9000:3000]}
+     * 2. {port_mapping=[1, 1, 3]}
+     * 3. {port_mapping=[22:22, 80:80, 9000:3000]}
+     * 4. Something else
+     * <p>
+     * ANSWER:
+     * <p>
+     * if your string literal consists of a series of one or two-digit numbers delimited by colons and all numbers
+     * but the first are between 0 and 59, it would be interpreted as a sexagesimal number
+     */
+    @Test
+    public void portMappers() {
+        var yaml = """
+                port_mapping:
+                  - 22:22
+                  - 80:80
+                  - 9000:3000
+                """;
+
+        var ports = new Yaml().load(yaml);
+        System.out.println(ports);
     }
 }

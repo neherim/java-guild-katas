@@ -12,54 +12,62 @@
 #+REVEAL_HLEVEL: 0
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="./css/local.css" />
 
-#+TITLE: Katas
+#+TITLE: Money Transfer Kata
 
-* Проект Fi Transfer
-** Fi Transfer Ex1
-*** Layered Architecture
+* Money Transfer Anemic
+** Layered Architecture
 #+ATTR_HTML: :width 50%
 [[file:./img/n-tier-architecture.png]]
 
-*** Anemic Domain Model
-В объектах предметной области инкапсулируются только данные, поведение же выносится в слой сервисов, расположенный поверх слоя предметной области.
+** Anemic Domain Model
+Domain object contains only data. All business logic located in service layer.
 
-*** Минусы
 #+attr_reveal: :frag (roll-in)
-- Тесты сложно писать
-- Хрупкие тесты
-- Нет инкапсуляции. Слабые гарантии консистентности данных
+- Pros
+  #+attr_reveal: :frag (roll-in)
+  - Simple and widely accepted approach.
+- Cons
+  #+attr_reveal: :frag (roll-in)
+  - Mixing IO with business logic leads to fragile tests, that hard to write.
+  - Data can be changed from anywhere. No consistency guaranties.
+  - Hard to reason about data model invariants.
 
-** Fi Transfer Ex2
-*** Clean Architecture
+* Money Transfer Rich
+** Clean Architecture
+a.k.a. Hexagonal / Onion / Ports&Adapters Architecture
 #+ATTR_HTML: :width 50%
 [[file:./img/clean_arch.png]]
-a.k.a. Hexagonal / Onion / Ports&Adapters Architecture
 
-*** Rich Domain Model
-Данные и поведение инкапсулируются внутри объектов предметной области.
+** Rich Domain Model
+Data and behavior encapsulated inside domain objects
 
-*** Плюсы
 #+attr_reveal: :frag (roll-in)
-- Быстрые тесты без моков
-- Инкапсуляция. Объекты гарантируют свою консистентность
+- Pros
+  #+attr_reveal: :frag (roll-in)
+  - Fast tests without mocks for business logic.
+  - Objects guarantee their consistency.
 
-** Виды тестирования
+- Cons
+  #+attr_reveal: :frag (roll-in)
+  - Required careful classes design. Not suitable for teams without experience
+
+* Testing Strategy
 #+ATTR_HTML: :width 70%
 [[file:./img/test_shapes.png]]
 
-** Выбор архитектуры
+* Choice of architectural style
 #+begin_src plantuml :file ./img/algo.svg :cache yes
 @startuml
 start
-if (Много \nбизнес логики?) then (да)
-  #palegreen:Rich Domain Model\nClean Architecture\n__ORM__ или JDBC\nПирамида тестирования;
+if (Complex\nbusiness logic?) then (yes)
+  #palegreen:Rich Domain Model\nClean Architecture\n__ORM__ or JDBC\nTesting pyramid;
   kill;
-else (нет)
-  if (Сложные структуры данных) then (да)
-    #palegreen:Anemic Domain Model\nLayered Architecture\n__JDBC__ или ORM\nРомб тестирования;
+else (no)
+  if (Complex data structures) then (yes)
+    #palegreen:Anemic Domain Model\nLayered Architecture\n__JDBC__ or ORM\nTesting daimond;
     kill;
-  else (нет)
-    #palegreen:Anemic Domain Model\nCLayered Architecture\nJDBC\nМороженое тестирования;
+  else (no)
+    #palegreen:Anemic Domain Model\nLayered Architecture\nJDBC\nReversed testing pyramid;
     kill;
   endif
 endif
@@ -67,10 +75,14 @@ endif
 #+end_src
 
 #+ATTR_HTML: :width 100%
-#+RESULTS[612eae0eeac94a3713b2045157d2501c3eb7ea8b]:
+#+RESULTS[66027dacf71993c531b2fc6b63cf4f259840e90c]:
 [[file:./img/algo.svg]]
 
-** Рекомендации
-- Functional core Imperative shell. По возможности отделяйте бизнес логику от IO.
-- Always valid domain model. Не допускайте возможности использовать ваш код неправильно.
-- No silver bullet. Используйте паттерны и технологии там, где это уместно.
+* Recommendations
+- Functional core Imperative shell. Separate business logic from IO if it's possible.
+- Always valid domain model. Make wrong state impossible.
+- No silver bullet. Use patterns and technologies only when they needed.
+
+* Links
+- [[https://www.oreilly.com/library/view/learning-domain-driven-design/9781098100124/][Learning Domain-Driven Design {Book}]]
+- [[https://www.oreilly.com/library/view/clean-code-a/9780136083238/][Clean Code: A Handbook of Agile Software Craftsmanship {Book}]]
