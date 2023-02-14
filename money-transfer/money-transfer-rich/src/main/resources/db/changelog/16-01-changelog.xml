@@ -9,7 +9,7 @@
         <createSequence incrementBy="1" sequenceName="seq" startValue="1"/>
     </changeSet>
     <changeSet id="1650058693022-2" author="neherim (generated)">
-        <createTable tableName="t_account">
+        <createTable tableName="account">
             <column name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_account"/>
             </column>
@@ -19,7 +19,7 @@
         </createTable>
     </changeSet>
     <changeSet id="1650058693022-3" author="neherim (generated)">
-        <createTable tableName="t_money_reservation">
+        <createTable tableName="money_reservation">
             <column name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_money_reservation"/>
             </column>
@@ -31,9 +31,9 @@
         </createTable>
     </changeSet>
     <changeSet id="1650058693022-4" author="neherim (generated)">
-        <addForeignKeyConstraint baseColumnNames="link_account" baseTableName="t_money_reservation"
+        <addForeignKeyConstraint baseColumnNames="link_account" baseTableName="money_reservation"
                                  constraintName="fk_account_money_reservation" referencedColumnNames="id"
-                                 referencedTableName="t_account"/>
+                                 referencedTableName="account"/>
     </changeSet>
 
 </databaseChangeLog>
