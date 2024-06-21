@@ -2,7 +2,7 @@ package com.github.neherim.guild.example.rich.utils;
 
 import lombok.Getter;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Getter

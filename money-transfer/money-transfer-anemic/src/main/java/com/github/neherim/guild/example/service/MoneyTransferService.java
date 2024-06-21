@@ -11,7 +11,7 @@ import com.github.neherim.guild.example.exceptions.NotEnoughMoneyException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor

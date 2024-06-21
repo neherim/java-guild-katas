@@ -3,14 +3,14 @@ package com.github.neherim.guild.example.rich.domain;
 import com.github.neherim.guild.example.rich.domain.exceptions.MoneyAlreadyReservedException;
 import com.github.neherim.guild.example.rich.domain.exceptions.MoneyNotReservedException;
 import com.github.neherim.guild.example.rich.domain.exceptions.NotEnoughMoneyException;
-import com.github.neherim.guild.example.rich.utils.BaseEntity;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Optional;
@@ -19,7 +19,10 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Account extends BaseEntity<Long> {
+public class Account {
+    @EmbeddedId
+    private AccountId id;
+
     private LocalDateTime dateOpen;
     private LocalDateTime dateClose;
     private Integer balance;
@@ -31,7 +34,7 @@ public class Account extends BaseEntity<Long> {
      * Open new account
      */
     public static Account openAccount(LocalDateTime openDateTime) {
-        return new Account(openDateTime, null, 0, new HashSet<>());
+        return new Account(new AccountId(), openDateTime, null, 0, new HashSet<>());
     }
 
     /**
@@ -61,6 +64,10 @@ public class Account extends BaseEntity<Long> {
             throw new NotEnoughMoneyException(getId());
         }
         moneyReservations.add(new MoneyReservation(operationId, amount, this));
+    }
+
+    public AccountId getId() {
+        return id;
     }
 
     /**

@@ -4,7 +4,7 @@ package com.github.neherim.guild.example.entity;
 import com.github.neherim.guild.example.utils.BaseEntity;
 import lombok.*;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 
 @Setter
 @Getter
