@@ -12,9 +12,9 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Entity
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -28,13 +28,13 @@ public class Account {
     private Integer balance;
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<MoneyReservation> moneyReservations;
+    private List<MoneyReservation> moneyReservations;
 
     /**
      * Open new account
      */
     public static Account openAccount(LocalDateTime openDateTime) {
-        return new Account(new AccountId(), openDateTime, null, 0, new HashSet<>());
+        return new Account(new AccountId(), openDateTime, null, 0, new ArrayList<>());
     }
 
     /**

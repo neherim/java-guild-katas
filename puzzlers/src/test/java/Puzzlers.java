@@ -161,4 +161,21 @@ public class Puzzlers {
         System.out.println((short) Double.POSITIVE_INFINITY);
         System.out.println((short) Double.NEGATIVE_INFINITY);
     }
+
+    /**
+     * This makes more sense if you consider a double as a composite of three parts: Sign, Exponent and Mantissa.
+     * Double.MIN_VALUE is actually the smallest value Mantissa
+     * https://skillbox.ru/media/code/chisla-s-plavayushchey-tochkoy-chto-eto-takoe-i-kak-oni-rabotayut/
+     */
+    @Test
+    void minDouble() {
+        System.out.println(Integer.MIN_VALUE < 0);
+        System.out.println(Double.MIN_VALUE < 0);
+    }
+
+    @Test
+    void zeroDiv() {
+        System.out.println(1.0/0.0);
+        System.out.println(1/0);
+    }
 }
